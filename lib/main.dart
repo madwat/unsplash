@@ -1,8 +1,15 @@
+/*
+Добовляю нужные библиотеки.
+*/
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-
+/* 
+Использую классы Photo, User, PhotoUrls для приема данных JSON.
+Внутри классов объявляю переменные. В одноименных конструкторах присваиваю значения переменным.
+Возвращаю значения которые вдальнейшем использую в прогррамме.
+*/
 class Photo {
   String description;
   PhotoUrls urls;
@@ -46,14 +53,20 @@ class PhotoUrls {
     );
   }
 }
-
+/*
+Точка входа в программу.
+*/
 void main() => runApp(MyApp());
-
+/*
+MyApp получает свойства изменяемого виджета.
+*/
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
-
+/*
+Приватному классу _MyAppState передаю свойства универсального класса State, специализированного для использования с MyApp
+*/
 class _MyAppState extends State<MyApp> {
   Future<List<Photo>> photos;
   Future<List<Photo>> fetchPhotos() async {
@@ -75,13 +88,17 @@ class _MyAppState extends State<MyApp> {
       throw Exception('Failed to load photos');
     }
   }
-
+/*
+Переопределяю метод initState()
+*/
   @override
   void initState() {
     super.initState();
     photos = fetchPhotos();
   }
-
+/*
+В функции сборщика создаю виджет Padding
+*/
   buildPhotosListView(AsyncSnapshot<List<Photo>> snapshot) {
     return ListView.builder(
       itemCount: snapshot.data.length,
@@ -91,7 +108,9 @@ class _MyAppState extends State<MyApp> {
           ),
     );
   }
+/*
 
+*/
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -125,7 +144,9 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
+/*
+ImageW получает свойства неизменяемого виджета.
+*/
 class ImageW extends StatelessWidget {
   final Photo data;
   const ImageW(this.data);
@@ -150,7 +171,9 @@ class ImageW extends StatelessWidget {
       ),
     );
   }
+/*
 
+*/
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -178,7 +201,9 @@ class ImageW extends StatelessWidget {
     );
   }
 }
+/*
 
+*/
 class Detail extends StatelessWidget {
   final Photo photoList;
   Detail(this.photoList);
@@ -202,7 +227,9 @@ class Detail extends StatelessWidget {
       ),
     );
   }
+/*
 
+*/
   buildImage() {
     return Align(
       alignment: Alignment.center,
@@ -214,7 +241,9 @@ class Detail extends StatelessWidget {
       ),
     );
   }
+/*
 
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -229,7 +258,9 @@ class Detail extends StatelessWidget {
     );
   }
 }
+/*
 
+*/
 class BottomAlignedText extends StatelessWidget {
   final User user;
   BottomAlignedText(this.user);
