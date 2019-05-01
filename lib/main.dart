@@ -66,6 +66,7 @@ class MyApp extends StatefulWidget {
 }
 /*
 Приватному классу _MyAppState передаю свойства универсального класса State, специализированного для использования с MyApp
+В функции fetchPhotos() асинхронно произвожу парсинг по задоному адресу и отправляю в <List<Photo>>
 */
 class _MyAppState extends State<MyApp> {
   Future<List<Photo>> photos;
@@ -97,7 +98,8 @@ class _MyAppState extends State<MyApp> {
     photos = fetchPhotos();
   }
 /*
-В функции сборщика создаю виджет Padding
+В функции сборщика создаю виджет Padding,
+в нем вывожу список фотографий формируемых в классе ImageW.
 */
   buildPhotosListView(AsyncSnapshot<List<Photo>> snapshot) {
     return ListView.builder(
@@ -109,7 +111,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 /*
-
+Виджет создающий 
 */
   @override
   Widget build(BuildContext context) {
@@ -146,6 +148,7 @@ class _MyAppState extends State<MyApp> {
 }
 /*
 ImageW получает свойства неизменяемого виджета.
+В подписи к картинке вывожу поле name. Строкой ниже, если есть вывожу bio, description, username.
 */
 class ImageW extends StatelessWidget {
   final Photo data;
@@ -172,7 +175,8 @@ class ImageW extends StatelessWidget {
     );
   }
 /*
-
+GestureDetector отлавливает нажатия. При нажатии испогльзуя Navigator.of(context).push открываю новую страницу,
+которую формирую в классе Detail.
 */
   @override
   Widget build(BuildContext context) {
@@ -202,7 +206,7 @@ class ImageW extends StatelessWidget {
   }
 }
 /*
-
+В buildBackIcon формирую кнопку для возврата к списку фотографий.
 */
 class Detail extends StatelessWidget {
   final Photo photoList;
@@ -228,7 +232,7 @@ class Detail extends StatelessWidget {
     );
   }
 /*
-
+В buildImage формирую вывод фотографии (regular).
 */
   buildImage() {
     return Align(
@@ -242,7 +246,8 @@ class Detail extends StatelessWidget {
     );
   }
 /*
-
+Под конец все формирую, то что будет выводиться в классе Detail,
+исользуя buildBackIcon и buildImage, а также подпись формируюмую в классе BottomAlignedText
 */
   @override
   Widget build(BuildContext context) {
@@ -258,9 +263,6 @@ class Detail extends StatelessWidget {
     );
   }
 }
-/*
-
-*/
 class BottomAlignedText extends StatelessWidget {
   final User user;
   BottomAlignedText(this.user);
